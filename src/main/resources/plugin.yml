@@ -1,0 +1,12 @@
+name: Slabutils
+version: '${project.version}'
+main: fr.supermax_8.slabutils.Slabutils
+api-version: 1.19
+authors: [ SuperMax_8 ]
+description: Now you can break 1/2 of the slabs
+commands:
+  nightvision:
+    description: Night vision
+    usage: /nightvision
+    permission: nightvision.use
+    aliases: nv
