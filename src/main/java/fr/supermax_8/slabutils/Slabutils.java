@@ -1,6 +1,7 @@
 package fr.supermax_8.slabutils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -63,20 +65,22 @@ public final class Slabutils extends JavaPlugin implements Listener {
         Block b = e.getBlock();
         if (!slabs.contains(b.getType())) return;
         Slab blockdata = (Slab) e.getBlock().getBlockData();
-        if (this.isTop(e.getPlayer(), e.getBlock())) {
-            if (blockdata.getType().equals(Type.DOUBLE)) {
-                blockdata.setType(Type.BOTTOM);
-                b.setBlockData(blockdata, true);
-                e.setCancelled(true);
-            }
-        } else {
-            if (blockdata.getType().equals(Type.DOUBLE)) {
+        checking:
+        {
+            if (this.isTop(e.getPlayer(), e.getBlock())) {
+                if (blockdata.getType().equals(Type.DOUBLE)) {
+                    blockdata.setType(Type.BOTTOM);
+                    break checking;
+                }
+            } else if (blockdata.getType().equals(Type.DOUBLE)) {
                 blockdata.setType(Type.TOP);
-                b.setBlockData(blockdata, true);
-                e.setCancelled(true);
+                break checking;
             }
+            return;
         }
-
+        e.setCancelled(true);
+        b.setBlockData(blockdata, true);
+        if (!e.getPlayer().getGameMode().equals(GameMode.CREATIVE)) b.getLocation().getWorld().dropItemNaturally(b.getLocation(), new ItemStack(b.getType()));
     }
 
     private boolean isTop(Player player, Block block) {

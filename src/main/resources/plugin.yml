@@ -7,11 +7,9 @@ description: Now you can break 1/2 of the slabs
 commands:
   nightvision:
     description: Night vision
-    usage: /nightvision
     permission: slabutils.commands
     aliases: nv
   vanish:
     description: Vanish
-    usage: /vanish
     permission: slabutils.commands
     aliases: v
