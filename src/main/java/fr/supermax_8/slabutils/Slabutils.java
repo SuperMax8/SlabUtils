@@ -35,6 +35,8 @@ public final class Slabutils extends JavaPlugin implements Listener {
                 slabs.add(m);
             }
         }
+
+        Metrics metrics = new Metrics(this, 17159);
     }
 
     @EventHandler
