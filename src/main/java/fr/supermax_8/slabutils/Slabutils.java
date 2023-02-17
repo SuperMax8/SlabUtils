@@ -82,16 +82,14 @@ public final class Slabutils extends JavaPlugin implements Listener {
         }
         e.setCancelled(true);
         b.setBlockData(blockdata, true);
-        if (!e.getPlayer().getGameMode().equals(GameMode.CREATIVE)) b.getLocation().getWorld().dropItemNaturally(b.getLocation(), new ItemStack(b.getType()));
+        if (!e.getPlayer().getGameMode().equals(GameMode.CREATIVE))
+            b.getLocation().getWorld().dropItemNaturally(b.getLocation(), new ItemStack(b.getType()));
     }
 
     private boolean isTop(Player player, Block block) {
         Location start = player.getEyeLocation().clone();
-
-        while (!start.getBlock().equals(block) && start.distance(player.getEyeLocation()) < 6.0D) {
+        while (!start.getBlock().equals(block) && start.distance(player.getEyeLocation()) < 6.0D)
             start.add(player.getLocation().getDirection().multiply(0.05D));
-        }
-
         return start.getY() % 1.0D > 0.5D;
     }
 
